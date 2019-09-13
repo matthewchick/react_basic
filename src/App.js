@@ -7,14 +7,17 @@ class App extends Component {   //React.Component
     super(props)
     //state
     this.state = {    //state object
-      users: []
+      users: [],
+      loading: false
     }
   }
 
   getUsers() {
+    this.setState({loading: true})
     axios('https://api.randomuser.me/?nat=US&results=5')
     .then(response => this.setState({     //ES6 promise
-      users: response.data.results        //update users
+      users: response.data.results,        //update users
+      loading: false
       })
     );
     //.then(response => console.log(response));
@@ -27,12 +30,13 @@ class App extends Component {   //React.Component
   render() {     // use {} to embed javascript code inside .jsx
     return (
       <div className="App">
-        {this.state.users.map(user => 
+        {!this.state.loading ? 
+          this.state.users.map(user => 
           <div>
             <h3>{user.name.first}</h3>
-            {user.cell}
+            {user.email}
           </div>
-          )}
+          ) : 'Loading'}
       </div>
     );
   }
