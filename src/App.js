@@ -7,13 +7,17 @@ class App extends Component {   //React.Component
     super(props)
     //state
     this.state = {    //state object
-      user: []
+      users: []
     }
   }
 
   componentWillMount() {    //react component lifecycle
     axios('https://api.randomuser.me/?nat=US&results=5')
-    .then(response => console.log(response));
+    .then(response => this.setState({
+      users: response.data.results   //update user
+      })
+    );
+    //.then(response => console.log(response));
   }
 
   render() {
