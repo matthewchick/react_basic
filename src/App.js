@@ -11,19 +11,28 @@ class App extends Component {   //React.Component
     }
   }
 
-  componentWillMount() {    //react component lifecycle
+  getUsers() {
     axios('https://api.randomuser.me/?nat=US&results=5')
-    .then(response => this.setState({
-      users: response.data.results   //update user
+    .then(response => this.setState({     //ES6 promise
+      users: response.data.results        //update users
       })
     );
     //.then(response => console.log(response));
   }
 
-  render() {
+  componentWillMount() {    //react component lifecycle
+    this.getUsers();
+  }
+
+  render() {     // use {} to embed javascript code inside .jsx
     return (
       <div className="App">
-        
+        {this.state.users.map(user => 
+          <div>
+            <h3>{user.name.first}</h3>
+            {user.cell}
+          </div>
+          )}
       </div>
     );
   }
