@@ -38,10 +38,11 @@ class App extends Component {   //React.Component
   }
 
   render() {     // use {} to embed javascript code inside .jsx
+    const {loading, users} = this.state     //object destructing
     return (
       <div className="App">
-        {!this.state.loading ? 
-          this.state.users.map(user => 
+        {!loading ? 
+          users.map(user => 
           <div>
             <h3>{user.name.first}</h3>
             {user.email}
