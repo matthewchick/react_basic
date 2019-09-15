@@ -1,12 +1,14 @@
 import React, { Component } from 'react';   //ES6 destructing
 // axios - promise based http client, install it by yarn add axios
 import axios from 'axios'
+// import {Loading} from './Loading'
+import Loading from './Loading'
 
 class App extends Component {   //React.Component
   constructor(props) {
     super(props)
     //state
-    this.state = {    //state object
+    this.state = {    //state object literal
       users: [],
       loading: false
     }
@@ -15,7 +17,7 @@ class App extends Component {   //React.Component
   getUsers() {
     this.setState({loading: true})
     axios('https://api.randomuser.me/?nat=US&results=5')
-    .then(response => this.setState({     //ES6 promise
+    .then(response => this.setState({      //ES6 promise
       users: response.data.results,        //update users
       loading: false
       })
@@ -36,7 +38,7 @@ class App extends Component {   //React.Component
             <h3>{user.name.first}</h3>
             {user.email}
           </div>
-          ) : 'Loading'}
+          ) : <Loading />}
       </div>
     );
   }
