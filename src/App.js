@@ -12,17 +12,25 @@ class App extends Component {   //React.Component
       users: [],
       loading: false
     }
+    // bind
+    this.handleSubmit = this.handleSubmit.bind(this); //to solve this.getUsers() not defined inside handleSubmit()
   }
 
   getUsers() {
     this.setState({loading: true})
     axios('https://api.randomuser.me/?nat=US&results=5')
     .then(response => this.setState({      //ES6 promise
-      users: response.data.results,        //update users
+      users: [...this.state.users, ...response.data.results],        //update users
       loading: false
       })
     );
     //.then(response => console.log(response));
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.getUsers();
+    console.log('more users loaded');
   }
 
   componentWillMount() {    //react component lifecycle
@@ -37,6 +45,10 @@ class App extends Component {   //React.Component
           <div>
             <h3>{user.name.first}</h3>
             {user.email}
+            <hr/>
+            <form onSubmit={this.handleSubmit}>
+              <input type ="submit" value="load users" />
+            </form>
           </div>
           ) : <Loading message="Hello" />}
       </div>
