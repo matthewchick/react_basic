@@ -38,7 +38,7 @@ class App extends Component {   //React.Component
             <h3>{user.name.first}</h3>
             {user.email}
           </div>
-          ) : <Loading />}
+          ) : <Loading message="Hello" />}
       </div>
     );
   }
